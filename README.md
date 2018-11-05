@@ -1,0 +1,1 @@
+simplify access to resources through the classloader or file
