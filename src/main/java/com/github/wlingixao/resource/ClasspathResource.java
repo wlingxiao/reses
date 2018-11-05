@@ -4,8 +4,6 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -19,7 +17,7 @@ public class ClasspathResource extends Resource {
 
     @Override
     public URL toUrl() {
-        return getURL();
+        return getURLFromClassLoaders();
     }
 
     @Override
@@ -43,22 +41,12 @@ public class ClasspathResource extends Resource {
 
     @Override
     public InputStream toInputStream() {
-        URL url = getURL();
+        URL url = getURLFromClassLoaders();
         try {
             return url != null ? url.openStream() : null;
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
-    }
-
-    @Override
-    public Reader toReader() {
-        return toReader(StandardCharsets.UTF_8);
-    }
-
-    @Override
-    public Reader toReader(Charset charset) {
-        return new BufferedReader(new InputStreamReader(toInputStream(), charset));
     }
 
     private ClassLoader[] getClassLoaders() {
@@ -67,11 +55,11 @@ public class ClasspathResource extends Resource {
                 getClass().getClassLoader()};
     }
 
-    private URL getURL() {
-        return getURL(name, getClassLoaders());
+    private URL getURLFromClassLoaders() {
+        return getURLFromClassLoaders(name, getClassLoaders());
     }
 
-    private URL getURL(String name, ClassLoader[] classLoaders) {
+    private URL getURLFromClassLoaders(String name, ClassLoader[] classLoaders) {
         URL url;
         for (ClassLoader cl : classLoaders) {
             if (cl != null) {

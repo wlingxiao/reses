@@ -4,21 +4,25 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class ClasspathResourceTests {
+public abstract class ResourceTests {
 
-    private ClasspathResource resource;
+    private Resource resource;
+
+    abstract Resource getResource();
 
     @Before
     public void setUp() {
-        this.resource = new ClasspathResource("test.file");
+        this.resource = getResource();
     }
 
     @Test
@@ -62,4 +66,16 @@ public class ClasspathResourceTests {
         byte[] bytes = resource.toBytes();
         assertThat(new String(bytes)).isEqualTo("abc");
     }
+
+    @Test
+    public void testGetResourceFromUri() throws IOException {
+        Resource resource = Resource.get("classpath:test.file");
+        assertThat(resource).isNotNull();
+
+        Path path = Files.createTempFile("file", "test");
+        Resource fileRes = Resource.get(path.toUri().toString());
+        assertThat(fileRes).isNotNull();
+
+    }
+
 }
