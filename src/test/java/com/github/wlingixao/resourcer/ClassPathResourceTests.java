@@ -1,4 +1,4 @@
-package com.github.wlingixao.resource;
+package com.github.wlingixao.resourcer;
 
 import org.junit.Test;
 

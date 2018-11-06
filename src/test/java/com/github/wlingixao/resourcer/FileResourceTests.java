@@ -1,4 +1,4 @@
-package com.github.wlingixao.resource;
+package com.github.wlingixao.resourcer;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
