@@ -78,4 +78,9 @@ public abstract class ResourceTests {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetResourceFromUnsupportedUri() {
+        Resource.get("war:test.file");
+    }
+
 }

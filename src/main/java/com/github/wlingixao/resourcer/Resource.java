@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Properties;
 
 public abstract class Resource {
 
@@ -75,6 +76,28 @@ public abstract class Resource {
      */
     public byte[] toBytes() {
         return toByteArray();
+    }
+
+    /**
+     * Returns the resource as Properties object using specified charset
+     */
+    public Properties toProperties(Charset charset) {
+        try {
+            Properties props = new Properties();
+            try (Reader in = toReader(charset)) {
+                props.load(in);
+            }
+            return props;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * Returns the resource as Properties object using UTF-8 charset
+     */
+    public Properties toProperties() {
+        return toProperties(StandardCharsets.UTF_8);
     }
 
     private byte[] toByteArray() {
