@@ -69,18 +69,18 @@ public abstract class ResourceTests {
 
     @Test
     public void testGetResourceFromUri() throws IOException {
-        Resource resource = Resource.get("classpath:test.file");
+        Resource resource = Reses.get("classpath:test.file");
         assertThat(resource).isNotNull();
 
         Path path = Files.createTempFile("file", "test");
-        Resource fileRes = Resource.get(path.toUri().toString());
+        Resource fileRes = Reses.get(path.toUri().toString());
         assertThat(fileRes).isNotNull();
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetResourceFromUnsupportedUri() {
-        Resource.get("war:test.file");
+        Reses.get("war:test.file");
     }
 
 }
