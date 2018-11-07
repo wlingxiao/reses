@@ -1,4 +1,4 @@
-package com.github.wlingixao.resourcer;
+package com.github.wlingixao.reses;
 
 import java.io.*;
 import java.net.URI;

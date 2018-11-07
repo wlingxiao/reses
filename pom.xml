@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.wlingxiao</groupId>
-    <artifactId>resourcer</artifactId>
+    <artifactId>reses</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
@@ -29,7 +29,7 @@
     </dependencies>
 
     <build>
-        <finalName>resource</finalName>
+        <finalName>reses</finalName>
         <plugins>
 
             <plugin>

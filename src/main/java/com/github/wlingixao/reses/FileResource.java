@@ -1,4 +1,4 @@
-package com.github.wlingixao.resourcer;
+package com.github.wlingixao.reses;
 
 import java.io.File;
 import java.io.IOException;
